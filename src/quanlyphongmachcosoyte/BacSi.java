@@ -18,12 +18,19 @@ public class BacSi extends NhanVien {
 	        double tongLuong = luongCoCau + phuCapUuDaiNghe + phuCapChucVu;
 	        return tongLuong;
 	    }
-
+	    
 	    @Override
 	    public void xuat() {
 	        super.xuat();
 	        System.out.println("Phu Cap Chuc Vu: " + this.phuCapChucVu);
 	        System.out.println("Tong Luong: " + TinhLuong());
 	    }
-	}
+	    
 
+	    public String taoChuoiCSV() {
+	        // Định dạng: Loai, MaID, HoTen, NgaySinh, GioiTinh, SoDT, MaNV, ChucVu, HeSoLuong, PhuCapChucVu
+	        // Truy cập các thuộc tính protected của NhanVien và Nguoi
+	        return "BacSi," + maID + "," + hoTen + "," + ngaySinh + "," + gioiTinh + "," + soDienThoai + ","
+	                + maNV + "," + chucVu + "," + heSoLuong + "," + phuCapChucVu;
+	    }
+	}

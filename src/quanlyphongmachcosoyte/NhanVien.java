@@ -2,10 +2,10 @@ package quanlyphongmachcosoyte;
 
 
 abstract public class NhanVien extends Nguoi {
-	  private String maNV;
-	    private String chucVu;
-	    protected double heSoLuong;
-	    public static final double LUONG_CO_BAN = 4300000;
+	protected String maNV;
+	protected String chucVu;
+	protected double heSoLuong;
+	public static final double LUONG_CO_BAN = 4300000;
 
 	    // Constructor
 	    public NhanVien(String maID, String hoTen, String ngaySinh, String gioiTinh, String soDienThoai, String maNV,
@@ -29,5 +29,8 @@ abstract public class NhanVien extends Nguoi {
 	        System.out.println("Chuc Vu: " + this.chucVu);
 	        System.out.println("He So Luong: " + this.heSoLuong);
 	    }
-	}
 
+	    public String getMaNV() {
+	        return maNV;
+	    }
+	}

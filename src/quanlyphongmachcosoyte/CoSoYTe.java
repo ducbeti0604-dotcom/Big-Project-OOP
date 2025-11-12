@@ -1,21 +1,42 @@
 package quanlyphongmachcosoyte;
+
 import java.util.Scanner;
+
+// Sửa: Cập nhật các hàm new Thuoc() và new XetNghiem() cho đúng
 public class CoSoYTe {
-	private static QL_BenhNhan qlBenhNhan = new QL_BenhNhan();
+    private static QL_BenhNhan qlBenhNhan = new QL_BenhNhan();
     private static QL_DichVu qlDichVu = new QL_DichVu();
     private static QL_GiaoDich qlGiaoDich = new QL_GiaoDich();
+    private static QL_NhanVien qlNhanVien = new QL_NhanVien();
     private static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) {
-        // Thêm một số dữ liệu mẫu để test cho nhanh
-        themDuLieuMau();
+    	qlDichVu.docFile();
+    	qlNhanVien.docFile();
+    	qlBenhNhan.docFile();
+    	qlGiaoDich.docFile();
+    	if (qlBenhNhan.danhSachBN.isEmpty()) { 
+            themDuLieuMau();
+        }
+    	if (qlNhanVien.danhSachNV.isEmpty()) { 
+            themDuLieuMau();
+        }
+    	if (qlBenhNhan.danhSachBN.isEmpty()) { 
+    	    themDuLieuMau();
+    	}
 
         boolean chay = true;
         while (chay) {
             hienThiMenuChinh();
-            System.out.print("Chon chuc nang (0-4): ");
-            int luaChon = scanner.nextInt();
-            scanner.nextLine(); 
+            System.out.print("Chon chuc nang (0-5): "); // <--- SỬA SỐ
+            int luaChon = -1; 
+            try {
+                 luaChon = scanner.nextInt();
+            } catch (Exception e) {
+                 System.out.println("Vui long nhap SO.");
+            }
+            
+            scanner.nextLine();
 
             switch (luaChon) {
                 case 1:
@@ -24,16 +45,24 @@ public class CoSoYTe {
                 case 2:
                     menuQuanLyDichVu();
                     break;
-                case 3:
+                case 3: 
+                    menuQuanLyNhanVien();
+                    break;
+                case 4: 
                     menuLapHoaDon();
                     break;
-                case 4:
+                case 5:
                     menuThongKe();
                     break;
                 case 0:
+                	qlNhanVien.ghiFile();
+                	qlBenhNhan.ghiFile();
+                	qlGiaoDich.ghiFile();
+                	qlDichVu.ghiFile();
                     chay = false;
                     System.out.println("Tam biet!");
                     break;
+                    
                 default:
                     System.out.println("Lua chon khong hop le. Vui long chon lai.");
             }
@@ -45,8 +74,9 @@ public class CoSoYTe {
         System.out.println("\n--- HE THONG QUAN LY CO SO Y TE ---");
         System.out.println("1. Quan ly Benh Nhan");
         System.out.println("2. Quan ly Dich Vu Y Te");
-        System.out.println("3. Lap Hoa Don Thanh Toan");
-        System.out.println("4. Thong ke & Xuat danh sach");
+        System.out.println("3. Quan ly Nhan Vien");        
+        System.out.println("4. Lap Hoa Don Thanh Toan");  
+        System.out.println("5. Thong ke & Xuat danh sach");
         System.out.println("0. Thoat chuong trinh");
     }
 
@@ -54,38 +84,187 @@ public class CoSoYTe {
     public static void menuQuanLyBenhNhan() {
         System.out.println("-- Menu Quan Ly Benh Nhan --");
         System.out.println("1. Them benh nhan moi");
-        System.out.println("2. Xuat danh sach benh nhan");
+        System.out.println("2. Xoa benh nhan");
+        System.out.println("3. Sua thong tin benh nhan");
+        System.out.println("4. Xuat danh sach benh nhan");
+        System.out.println("0. Quay lai menu chinh");
         System.out.print("Chon: ");
         int chon = scanner.nextInt();
         scanner.nextLine();
+        String maBN;
 
-        if (chon == 1) {
-            BenhNhan bnMoi = new BenhNhan("CCCD003", "Tran Van C", "20/10/1992", "Nam", "0909090909",
-                    "BN003", "11/11/2025", "Viem hong");
+        switch (chon) {
+        case 1:
+            System.out.println("--- Them Benh Nhan Moi ---");
+            
+            // BƯỚC 1: Yêu cầu người dùng nhập đầy đủ thông tin
+            System.out.print("Nhap Ma BN (VD: BN003): ");
+            String MaBN = scanner.nextLine();
+            
+            // Kiểm tra trùng lặp ngay đây (nếu bạn đã sửa hàm themBN)
+            if (qlBenhNhan.timKiemBN(MaBN) != null) {
+                System.out.println("Loi: Ma BN da ton tai. Quay lai menu.");
+                break;
+            }
+            
+            System.out.print("Nhap CCCD/MaID: ");
+            String maID = scanner.nextLine();
+            System.out.print("Nhap Ho Ten: ");
+            String hoTen = scanner.nextLine();
+            System.out.print("Nhap Ngay Sinh (VD: DD/MM/YYYY): ");
+            String ngaySinh = scanner.nextLine();
+            System.out.print("Nhap Gioi Tinh: ");
+            String gioiTinh = scanner.nextLine();
+            System.out.print("Nhap So Dien Thoai: ");
+            String soDienThoai = scanner.nextLine();
+            System.out.print("Nhap Ngay Vao Vien (VD: 11/11/2025): ");
+            String ngayVaoVien = scanner.nextLine();
+            System.out.print("Nhap Benh Ly: ");
+            String benhLy = scanner.nextLine();
+            
+            // BƯỚC 2: Tạo đối tượng BenhNhan MỚI từ các biến vừa nhập
+            BenhNhan bnMoi = new BenhNhan(maID, hoTen, ngaySinh, gioiTinh, soDienThoai,
+            		MaBN, ngayVaoVien, benhLy);
+                    
+            // BƯỚC 3: Thêm vào danh sách quản lý
             qlBenhNhan.themBN(bnMoi);
-        } else {
-            qlBenhNhan.xuatDanhSach();
+            break;
+            case 2:
+                System.out.println("--- Xoa Benh Nhan ---");
+                System.out.print("Nhap Ma BN can xoa: ");
+                maBN = scanner.nextLine();
+                qlBenhNhan.xoaBN(maBN); // Gọi hàm xóa đã thêm
+                break;
+            case 3:
+                System.out.println("--- Sua Thong Tin Benh Nhan ---");
+                System.out.print("Nhap Ma BN can sua: ");
+                maBN = scanner.nextLine();
+                qlBenhNhan.suaBN(maBN, scanner); // Gọi hàm sửa đã thêm
+                break;
+            case 4:
+                qlBenhNhan.xuatDanhSach();
+                break;
+            case 0:
+                System.out.println("Quay lai menu chinh...");
+                break;
+            default:
+                System.out.println("Lua chon khong hop le.");
         }
     }
 
     // Menu con 2
     public static void menuQuanLyDichVu() {
-        qlDichVu.xuatDanhSach();
+        System.out.println("-- Menu Quan Ly Dich Vu --");
+        System.out.println("1. Xuat danh sach dich vu");
+        System.out.println("2. Xoa dich vu");
+        System.out.println("3. Sua gia dich vu");
+        System.out.println("4. Them dich vu moi (test)");
+        System.out.println("0. Quay lai menu chinh");
+        System.out.print("Chon: ");
+        int chon = scanner.nextInt();
+        scanner.nextLine();
+        String maDV;
+
+        switch (chon) {
+            case 1:
+                qlDichVu.xuatDanhSach();
+                break;
+            case 2:
+                System.out.println("--- Xoa Dich Vu ---");
+                System.out.print("Nhap Ma DV can xoa (VD: T001, XN001): ");
+                maDV = scanner.nextLine();
+                qlDichVu.xoaDV(maDV); // Gọi hàm xóa đã thêm
+                break;
+            case 3:
+                System.out.println("--- Sua Gia Dich Vu ---");
+                System.out.print("Nhap Ma DV can sua gia: ");
+                maDV = scanner.nextLine();
+                qlDichVu.suaDV(maDV, scanner); // Gọi hàm sửa đã thêm
+                break;
+            case 4:
+                // Sửa: Cập nhật constructor (6 tham số)
+                qlDichVu.themDV(new Thuoc("T003", "Panadol Extra", 30000, "Vien", 1.0, 'B'));
+                break;
+            case 0:
+                System.out.println("Quay lai menu chinh...");
+                break;
+            default:
+                System.out.println("Lua chon khong hop le.");
+        }
     }
 
-    // Menu con 3
+    // *** HÀM MỚI ĐƯỢC THÊM VÀO ***
+    // Menu con 3 (Mới)
+    public static void menuQuanLyNhanVien() {
+        System.out.println("-- Menu Quan Ly Nhan Vien --");
+        System.out.println("1. Them nhan vien moi (Demo)");
+        System.out.println("2. Xoa nhan vien");
+        System.out.println("3. Sua thong tin nhan vien");
+        System.out.println("4. Xuat danh sach nhan vien");
+        System.out.println("5. Tinh tong quy luong");
+        System.out.println("0. Quay lai menu chinh");
+        System.out.print("Chon: ");
+        int chon = -1;
+        try {
+            chon = scanner.nextInt();
+        } catch (Exception e) {
+            System.out.println("Vui long nhap SO.");
+        }
+        scanner.nextLine(); // Luôn tiêu thụ ký tự enter
+        String maNV;
+
+        switch (chon) {
+            case 1:
+                System.out.println("--- Them Nhan Vien Moi (Demo Bac Si) ---");
+                // Trong một ứng dụng thực tế, bạn sẽ yêu cầu người dùng nhập từng thông tin
+                BacSi bsMoi = new BacSi("CCCD103", "Nguyen Thi G", "04/04/1988", "Nu", "044444444", "BS002", "Pho Khoa", 4.5, 3000000);
+                qlNhanVien.themNV(bsMoi);
+                break;
+            case 2:
+                System.out.println("--- Xoa Nhan Vien ---");
+                System.out.print("Nhap Ma NV can xoa (VD: BS001): ");
+                maNV = scanner.nextLine();
+                qlNhanVien.xoaNV(maNV);
+                break;
+            case 3:
+                System.out.println("--- Sua Thong Tin Nhan Vien ---");
+                System.out.print("Nhap Ma NV can sua: ");
+                maNV = scanner.nextLine();
+                qlNhanVien.suaNV(maNV, scanner);
+                break;
+            case 4:
+                qlNhanVien.xuatDanhSach();
+                break;
+            case 5:
+                qlNhanVien.tinhTongQuyLuong();
+                break;
+            case 0:
+                System.out.println("Quay lai menu chinh...");
+                break;
+            default:
+                System.out.println("Lua chon khong hop le.");
+        }
+    }
+
+    // Menu con 4 (Trước đó là 3)
     public static void menuLapHoaDon() {
         System.out.println("-- Menu Lap Hoa Don --");
         System.out.print("Nhap ma hoa don (VD: HD001): ");
         String maHD = scanner.nextLine();
         System.out.print("Nhap ma benh nhan (VD: BN001): ");
         String maBN = scanner.nextLine();
+        
+        BenhNhan bn = qlBenhNhan.timKiemBN(maBN);
+        if (bn == null) {
+            System.out.println("Loi: Benh nhan " + maBN + " khong ton tai!");
+            return; 
+        }
+
         System.out.print("Nhap ngay lap (VD: 11/11/2025): ");
         String ngayLap = scanner.nextLine();
 
         HoaDon hoaDonMoi = new HoaDon(maHD, maBN, ngayLap);
 
-        // Thêm dịch vụ vào hóa đơn
         while (true) {
             System.out.print("Nhap ma dich vu can them (hoac 'x' de ket thuc): ");
             String maDV = scanner.nextLine();
@@ -101,13 +280,11 @@ public class CoSoYTe {
             }
         }
 
-        // Thêm hóa đơn vào danh sách quản lý
         qlGiaoDich.themHoaDon(hoaDonMoi);
-        // In chi tiết hóa đơn vừa lập
         hoaDonMoi.xuatHoaDon();
     }
-    
-    // Menu con 4
+
+    // Menu con 5 (Trước đó là 4)
     public static void menuThongKe() {
         System.out.println("-- Menu Thong Ke --");
         System.out.println("1. Xuat lich su giao dich (hoa don)");
@@ -125,19 +302,25 @@ public class CoSoYTe {
 
     public static void themDuLieuMau() {
         System.out.println("Dang them du lieu mau...");
-        // Mẫu Bệnh Nhân
         qlBenhNhan.themBN(new BenhNhan("CCCD001", "Nguyen Van A", "10/10/2000", "Nam", "0123456789",
                 "BN001", "10/11/2025", "Cam cum"));
         qlBenhNhan.themBN(new BenhNhan("CCCD002", "Thi Be B", "12/01/1995", "Nu", "0987654321",
                 "BN002", "11/11/2025", "Dau bung"));
 
-        // Mẫu Dịch Vụ
-        qlDichVu.themDV(new Thuoc("T001", "Paracetamol", 15000, "Vien",12f,'A'));
-        qlDichVu.themDV(new Thuoc("T002", "Berberin", 20000, "Vien",30f,'B'));
-        qlDichVu.themDV(new XetNghiem("XN001", "Xet nghiem mau",'B', 150000, "May ly tam", "Mau"));
-        qlDichVu.themDV(new XetNghiem("XN002", "Sieu am o bung", 'C',200000, "May sieu am", "Hinh anh"));
+        // Thuoc(String maDV, String tenDV, double giaTien, String donViTinh, double hesoThuoc, char xeploai)
+        qlDichVu.themDV(new Thuoc("T001", "Paracetamol", 15000, "Vien", 1.0, 'B'));
+        qlDichVu.themDV(new Thuoc("T002", "Berberin", 20000, "Vien", 1.0, 'C'));
         
+        // XetNghiem(String maDV, String tenDV, char xeploai, double giaTien, String yeuCauThietBi, String loaiXetNghiem)
+        qlDichVu.themDV(new XetNghiem("XN001", "Xet nghiem mau", 'A', 150000, "May ly tam", "Mau"));
+        qlDichVu.themDV(new XetNghiem("XN002", "Sieu am o bung", 'B', 200000, "May sieu am", "Hinh anh"));
+
+        // *** THÊM DỮ LIỆU MẪU NHÂN VIÊN ***
+        System.out.println("Them du lieu mau Nhan Vien...");
+        qlNhanVien.themNV(new BacSi("CCCD100", "Nguyen Van Bac Si", "01/01/1980", "Nam", "011111111", "BS001", "Truong Khoa", 5.0, 5000000));
+        qlNhanVien.themNV(new DieuDuong("CCCD101", "Tran Thi Dieu Duong", "02/02/1990", "Nu", "022222222", "DD001", "Dieu duong truong", 3.5, 2000000, 10));
+        qlNhanVien.themNV(new KiThuatVien("CCCD102", "Le Van KTV", "03/03/1995", "Nam", "033333333", "KTV001", "KTV Xet nghiem", 3.0, 1000000, 500000, 20));
+
         System.out.println("Them du lieu mau thanh cong!\n");
     }
 }
-

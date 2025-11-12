@@ -1,0 +1,4 @@
+#Loai,MaID,HoTen,NgaySinh,GioiTinh,SoDT,MaNV,ChucVu,HeSoLuong,ThongTinRieng...
+BacSi,CCCD100,Nguyen Van Bac Si,01/01/1980,Nam,011111111,BS001,Truong Khoa,5.0,5000000.0
+DieuDuong,CCCD101,Tran Thi Dieu Duong,02/02/1990,Nu,022222222,DD001,Dieu duong truong,3.5,2000000.0,10
+KiThuatVien,CCCD102,Le Van KTV,03/03/1995,Nam,033333333,KTV001,KTV Xet nghiem,3.0,1000000.0,500000.0,20

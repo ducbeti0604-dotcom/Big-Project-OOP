@@ -1,0 +1,5 @@
+#LoaiDV,MaDV,TenDV,GiaTien,XepLoai,ThongTinRieng...
+Thuoc,T001,Paracetamol,15000.0,B,Vien,1.0
+Thuoc,T002,Berberin,20000.0,C,Vien,1.0
+XetNghiem,XN001,Xet nghiem mau,150000.0,A,May ly tam,Mau
+XetNghiem,XN002,Sieu am o bung,200000.0,B,May sieu am,Hinh anh

@@ -1,18 +1,21 @@
 package quanlyphongmachcosoyte;
+
 import java.util.ArrayList;
 import java.util.List;
+
+// Sửa: Dùng dv.tinhChiPhi() thay vì dv.giaTien
 public class HoaDon implements ThanhToan {
-	private String maHoaDon;
-    private String maBN; 
-    private String ngayLap; 
-    private List<DichVuYTe> danhSachDichVuSuDung; 
+    private String maHoaDon;
+    private String maBN;
+    private String ngayLap;
+    private List<DichVuYTe> danhSachDichVuSuDung;
 
     // Constructor
     public HoaDon(String maHoaDon, String maBN, String ngayLap) {
         this.maHoaDon = maHoaDon;
         this.maBN = maBN;
         this.ngayLap = ngayLap;
-        this.danhSachDichVuSuDung = new ArrayList<>(); 
+        this.danhSachDichVuSuDung = new ArrayList<>();
     }
 
     // Thêm một dịch vụ vào hóa đơn
@@ -25,9 +28,10 @@ public class HoaDon implements ThanhToan {
     @Override
     public double tinhtongtien() {
         double tongTien = 0;
-        // Duyệt qua danh sách dịch vụ và cộng dồn giá tiền
         for (DichVuYTe dv : danhSachDichVuSuDung) {
-            tongTien += dv.giaTien;
+            // Sửa: SỬA DỤNG TÍNH ĐA HÌNH
+            // Tự động gọi tinhChiPhi() của Thuoc hoặc XetNghiem
+            tongTien += dv.tinhChiPhi();
         }
         return tongTien;
     }
@@ -44,7 +48,8 @@ public class HoaDon implements ThanhToan {
             System.out.println("Khong su dung dich vu nao.");
         } else {
             for (DichVuYTe dv : danhSachDichVuSuDung) {
-                System.out.println("- " + dv.tenDV + ": " + dv.giaTien + " VND");
+                // Sửa: Hiển thị chi phí đã tính (đa hình)
+                System.out.println("- " + dv.tenDV + ": " + dv.tinhChiPhi() + " VND");
             }
         }
 
@@ -53,13 +58,18 @@ public class HoaDon implements ThanhToan {
         System.out.println("-------------------------");
     }
 
-    // Getter 
+    // Getter
     public String getMaHoaDon() {
         return maHoaDon;
     }
-
+    public String getNgayLap() {
+    	return ngayLap;
+    };
+    public List<DichVuYTe> getDanhSachDichVuSuDung() {
+		return danhSachDichVuSuDung;
+    	
+    };
     public String getMaBN() {
         return maBN;
     }
 }
-

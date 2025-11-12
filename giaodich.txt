@@ -1,0 +1,7 @@
+# HD: MaHD,MaBN,NgayLap | DV: LoaiDV,MaDV,TenDV,GiaTien,XepLoai,ThongTinRieng...
+HD,HD001,BN001,2025-11-12
+DV,Thuoc,T001,Paracetamol,15000.0,B,Vien,1.0
+DV,XetNghiem,XN001,Xet nghiem mau,150000.0,A,May ly tam,Mau
+HD,HD002,BN002,2025-11-12
+DV,Thuoc,T002,Berberin,20000.0,C,Vien,1.0
+DV,Thuoc,T002,Berberin,20000.0,C,Vien,1.0

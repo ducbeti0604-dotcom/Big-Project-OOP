@@ -39,5 +39,10 @@ public class KiThuatVien extends NhanVien {
 	        System.out.println("So Gio Truc Dem: " + this.soGioTrucDem);
 	        System.out.println("Tong Luong: " + TinhLuong());
 	    }
+	    
+	    public String taoChuoiCSV() {
+	        // Định dạng: Loai, MaID, HoTen, NgaySinh, GioiTinh, SoDT, MaNV, ChucVu, HeSoLuong, PhuCapNguyHiem, ThuongHieuSuat, SoGioTrucDem
+	    	return "KiThuatVien," + maID + "," + hoTen + "," + ngaySinh + "," + gioiTinh + "," + soDienThoai + ","
+	                + maNV + "," + chucVu + "," + heSoLuong + "," + phuCapNguyHiem + "," + thuongHieuSuat + "," + soGioTrucDem;
+	    }
 	}
-

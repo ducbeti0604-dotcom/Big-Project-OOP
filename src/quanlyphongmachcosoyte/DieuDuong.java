@@ -30,5 +30,10 @@ public class DieuDuong extends NhanVien {
 	        System.out.println("So Gio Lam Them: " + this.soGioLamThem);
 	        System.out.println("Tong luong: " + TinhLuong());
 	    }
+	    
+	    public String taoChuoiCSV() {
+	        // Định dạng: Loai, MaID, HoTen, NgaySinh, GioiTinh, SoDT, MaNV, ChucVu, HeSoLuong, PhuCapNgheNghiep, SoGioLamThem
+	        return "DieuDuong," + maID + "," + hoTen + "," + ngaySinh + "," + gioiTinh + "," + soDienThoai + ","
+	                + maNV + "," + chucVu + "," + heSoLuong + "," + phuCapNgheNghiep + "," + soGioLamThem;
+	    }
 	}
-
