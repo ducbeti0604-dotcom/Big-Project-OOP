@@ -1,0 +1,36 @@
+# Bỏ qua file rác của OS (Windows, macOS)
+Thumbs.db
+.DS_Store
+
+# Bỏ qua code đã biên dịch của Java
+*.class
+*.jar
+*.war
+*.ear
+
+# Thư mục chứa code đã biên dịch
+bin/
+build/
+dist/
+target/
+
+# === IDE specific ===
+
+# 1. Visual Studio Code
+.vscode/
+.bloop/
+.metals/
+
+# 2. Eclipse
+.project
+.classpath
+.settings/
+
+# 3. NetBeans
+nbproject/
+nb-configuration.xml
+nbactions.xml
+*.nbm
+
+# Log files
+*.log
