@@ -19,3 +19,4 @@ target/
 
 # Log and data files
 *.log
+manifest.mf
