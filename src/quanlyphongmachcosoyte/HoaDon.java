@@ -59,17 +59,17 @@ public class HoaDon implements ThanhToan {
     }
 
     // Getter
-    public String getMaHoaDon() {
+    public String layMaHoaDon() {
         return maHoaDon;
     }
-    public String getNgayLap() {
+    public String layNgayLap() {
     	return ngayLap;
     };
-    public List<DichVuYTe> getDanhSachDichVuSuDung() {
+    public List<DichVuYTe> layDanhSachDichVuSuDung() {
 		return danhSachDichVuSuDung;
     	
     };
-    public String getMaBN() {
+    public String layMaBN() {
         return maBN;
     }
 }

@@ -20,13 +20,13 @@ public class QL_GiaoDich {
     // Thêm một hóa đơn mới
     public void themHoaDon(HoaDon hd) {
         this.danhSachHoaDon.add(hd);
-        System.out.println("Da lap hoa don " + hd.getMaHoaDon() + " cho BN " + hd.getMaBN());
+        System.out.println("Da lap hoa don " + hd.layMaHoaDon() + " cho BN " + hd.layMaBN());
     }
 
     // Tìm hóa đơn theo Mã Hóa Đơn
     public HoaDon timKiemHD(String maHD) {
         for (HoaDon hd : danhSachHoaDon) {
-            if (hd.getMaHoaDon().equalsIgnoreCase(maHD)) {
+            if (hd.layMaHoaDon().equalsIgnoreCase(maHD)) {
                 return hd;
             }
         }
@@ -68,12 +68,12 @@ public class QL_GiaoDich {
 
             for (HoaDon hd : danhSachHoaDon) {
                 // 1. Ghi thông tin Hóa Đơn chính (Header)
-                String hdLine = "HD," + hd.getMaHoaDon() + "," + hd.getMaBN() + "," + hd.getNgayLap();
+                String hdLine = "HD," + hd.layMaHoaDon() + "," + hd.layMaBN() + "," + hd.layNgayLap();
                 writer.write(hdLine);
                 writer.newLine();
                 
                 // 2. Ghi thông tin chi tiết các Dịch vụ
-                for (DichVuYTe dv : hd.getDanhSachDichVuSuDung()) { // Giả sử có getter cho List
+                for (DichVuYTe dv : hd.layDanhSachDichVuSuDung()) {
                     String dvLine = "";
                     if (dv instanceof Thuoc) {
                         dvLine = ((Thuoc) dv).taoChuoiCSV();
@@ -95,9 +95,7 @@ public class QL_GiaoDich {
         }
     }
 
-    /**
-     * Đọc dữ liệu Giao dịch từ file và tải vào danh sách.
-     */
+     //Đọc dữ liệu Giao dịch từ file và tải vào danh sách.
     public void docFile() {
         File file = new File(dsGiaoDich);
         if (!file.exists()) {
@@ -147,10 +145,6 @@ public class QL_GiaoDich {
         }
     }
     
-    /**
-     * Phân tích dòng HD (Header) thành đối tượng HoaDon.
-     * Dòng: HD,MaHD,MaBN,NgayLap
-     */
     private HoaDon phanTichDongHD(String[] parts) {
         if (parts.length != 4) {
              System.out.println("Loi: Thieu truong du lieu Header Hoa Don.");
@@ -169,13 +163,8 @@ public class QL_GiaoDich {
         }
     }
     
-    /**
-     * Phân tích dòng DV (Detail) thành đối tượng Thuoc hoặc XetNghiem.
-     * Dòng: DV,LoaiDV,MaDV,TenDV,GiaTien,...
-     */
     private DichVuYTe phanTichDongDV(String[] parts) {
-        // parts[0] là "DV"
-        String loaiDV = parts[1]; // parts[1] là LoaiDV ("Thuoc" hoặc "XetNghiem")
+        String loaiDV = parts[1];
 
         try {
             if (loaiDV.equalsIgnoreCase("Thuoc")) {

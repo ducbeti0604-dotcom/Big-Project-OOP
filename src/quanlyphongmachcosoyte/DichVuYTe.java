@@ -22,7 +22,7 @@ abstract public class DichVuYTe {
 
     // Sửa: Thêm hàm này để QL_DichVu có thể sửa giá
     // DÒNG NÀY SẼ SỬA LỖI Ở ẢNH 2
-    public void setGiaTien(double giaMoi) {
+    public void datGiaTien(double giaMoi) {
         if (giaMoi > 0) {
             this.giaTien = giaMoi;
         }

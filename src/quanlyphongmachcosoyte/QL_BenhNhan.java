@@ -1,17 +1,15 @@
 package quanlyphongmachcosoyte;
 
 
-import java.io.BufferedWriter; // <--- Cần thêm
-import java.io.File;         // <--- Cần thêm
-import java.io.FileNotFoundException; // <--- Cần thêm
-import java.io.FileWriter;   // <--- Cần thêm
-import java.io.IOException;  // <--- Cần thêm
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;  
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner; // Sửa: Thêm import
+import java.util.Scanner;
 
-// Sửa: Thêm hàm xoaBN, suaBN
-// Sửa: Sửa logic timKiemBN
 public class QL_BenhNhan {
     protected List<BenhNhan> danhSachBN;
     private final String dsBenhNhan = "benhnhan.txt";
@@ -31,7 +29,7 @@ public class QL_BenhNhan {
     public BenhNhan timKiemBN(String maBN) {
         for (BenhNhan bn : danhSachBN) {
             // Sửa: Tìm theo getMaBN()
-            if (bn.getMaBN().equalsIgnoreCase(maBN)) {
+            if (bn.layMaBN().equalsIgnoreCase(maBN)) {
                 return bn;
             }
         }
@@ -46,12 +44,11 @@ public class QL_BenhNhan {
         }
         System.out.println("--- DANH SACH BENH NHAN ---");
         for (BenhNhan bn : danhSachBN) {
-            bn.xuat(); // Gọi hàm xuat() của mỗi bệnh nhân
+            bn.xuat();
             System.out.println("--------------------");
         }
     }
 
-    // Sửa: Thêm hàm xóa
     public void xoaBN(String maBN) {
         BenhNhan bn = timKiemBN(maBN);
         if (bn != null) {
@@ -62,7 +59,7 @@ public class QL_BenhNhan {
         }
     }
 
-    // Sửa: Thêm hàm sửa
+    // Sửa bệnh nhân
     public void suaBN(String maBN, Scanner scanner) {
         BenhNhan bn = timKiemBN(maBN);
         if (bn != null) {
@@ -70,15 +67,15 @@ public class QL_BenhNhan {
             System.out.print("Nhap benh ly moi (enter de bo qua): ");
             String benhLyMoi = scanner.nextLine();
             if (!benhLyMoi.trim().isEmpty()) {
-                bn.setBenhLy(benhLyMoi);
+                bn.datBenhLy(benhLyMoi);
                 System.out.println("Da cap nhat benh ly!");
             }
-            // Thêm các câu hỏi sửa thông tin khác (họ tên, sđt...) ở đây
         } else {
             System.out.println("Khong tim thay benh nhan voi ma: " + maBN);
         }
     }
     
+    //============ Đọc/Ghi file ============//
     public boolean ghiFile() {
         if (danhSachBN.isEmpty()) {
             System.out.println("Danh sach benh nhan rong, khong co gi de ghi.");
@@ -90,7 +87,6 @@ public class QL_BenhNhan {
             writer.newLine(); 
 
             for (BenhNhan bn : danhSachBN) {
-                // Sử dụng phương thức taoChuoiCSV() vừa tạo
                 writer.write(bn.taoChuoiCSV());
                 writer.newLine();
             }
@@ -101,10 +97,8 @@ public class QL_BenhNhan {
             return false;
         }
     }
-
-    /**
-     * Đọc dữ liệu bệnh nhân từ file text (CSV) và tải vào danh sách.
-     */
+  
+     //Đọc dữ liệu bệnh nhân từ file text (CSV) và tải vào danh sách.
     public void docFile() {
         File file = new File(dsBenhNhan);
         if (!file.exists()) {
@@ -118,7 +112,6 @@ public class QL_BenhNhan {
             
             while (scannerFile.hasNextLine()) {
                 String line = scannerFile.nextLine();
-                // Bỏ qua dòng trống hoặc dòng header (bắt đầu bằng #)
                 if (line.trim().isEmpty() || line.startsWith("#")) continue; 
                 
                 BenhNhan bn = phanTichDong(line); 
@@ -134,9 +127,6 @@ public class QL_BenhNhan {
         }
     }
     
-    /**
-     * Phân tích một dòng CSV thành đối tượng BenhNhan.
-     */
     private BenhNhan phanTichDong(String line) {
         String[] parts = line.split(","); // Tách chuỗi theo dấu phẩy
         

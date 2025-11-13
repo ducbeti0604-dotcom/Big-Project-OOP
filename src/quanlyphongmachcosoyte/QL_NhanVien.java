@@ -1,10 +1,10 @@
 package quanlyphongmachcosoyte;
 
-import java.io.BufferedWriter; // <--- Cần thêm
-import java.io.File;         // <--- Cần thêm
-import java.io.FileNotFoundException; // <--- Cần thêm
-import java.io.FileWriter;   // <--- Cần thêm
-import java.io.IOException;  // <--- Cần thêm
+import java.io.BufferedWriter; 
+import java.io.File;      
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -18,37 +18,25 @@ public class QL_NhanVien {
         this.danhSachNV = new ArrayList<>();
     }
 
-    /**
-     * Thêm một nhân viên mới (có thể là Bác Sĩ, Điều Dưỡng, KTV
-     * nhờ vào tính đa hình).
-     */
     public void themNV(NhanVien nv) {
         // Kiểm tra xem mã NV đã tồn tại chưa
-        if (timKiemNV(nv.getMaNV()) != null) {
-            System.out.println("Loi: Ma NV " + nv.getMaNV() + " da ton tai.");
+        if (timKiemNV(nv.layMaNV()) != null) {
+            System.out.println("Loi: Ma NV " + nv.layMaNV() + " da ton tai.");
             return;
         }
         this.danhSachNV.add(nv);
         System.out.println("Da them nhan vien: " + nv.hoTen);
     }
 
-    /**
-     * Tìm kiếm nhân viên theo Mã NV.
-     * Trả về đối tượng NhanVien nếu tìm thấy, ngược lại trả về null.
-     */
     public NhanVien timKiemNV(String maNV) {
         for (NhanVien nv : danhSachNV) {
-            // Sử dụng getMaNV()
-            if (nv.getMaNV().equalsIgnoreCase(maNV)) {
+            if (nv.layMaNV().equalsIgnoreCase(maNV)) {
                 return nv;
             }
         }
         return null;
     }
 
-    /**
-     * Xóa nhân viên khỏi danh sách dựa trên mã NV.
-     */
     public void xoaNV(String maNV) {
         NhanVien nv = timKiemNV(maNV);
         if (nv != null) {
@@ -59,11 +47,6 @@ public class QL_NhanVien {
         }
     }
 
-    /**
-     * Sửa thông tin nhân viên (ví dụ: sửa hệ số lương).
-     * Thuộc tính heSoLuong là 'protected' trong NhanVien,
-     * nên ta có thể truy cập trực tiếp.
-     */
     public void suaNV(String maNV, Scanner scanner) {
         NhanVien nv = timKiemNV(maNV);
         if (nv != null) {
@@ -73,21 +56,17 @@ public class QL_NhanVien {
             if (!input.trim().isEmpty()) {
                 try {
                     double heSoMoi = Double.parseDouble(input);
-                    nv.heSoLuong = heSoMoi; // 'heSoLuong' là protected, có thể truy cập
+                    nv.heSoLuong = heSoMoi;
                     System.out.println("Da cap nhat he so luong!");
                 } catch (Exception e) {
                     System.out.println("Loi: Nhap sai dinh dang so.");
                 }
             }
-            // Bạn có thể thêm các câu hỏi để sửa các thông tin khác ở đây
         } else {
             System.out.println("Khong tim thay nhan vien voi ma: " + maNV);
         }
     }
 
-    /**
-     * Xuất danh sách toàn bộ nhân viên, sử dụng tính đa hình của hàm xuat().
-     */
     public void xuatDanhSach() {
         if (danhSachNV.isEmpty()) {
             System.out.println("Danh sach nhan vien rong.");
@@ -100,10 +79,6 @@ public class QL_NhanVien {
         }
     }
 
-    /**
-     * Tính tổng quỹ lương phải trả cho tất cả nhân viên trong tháng.
-     * Sử dụng tính đa hình của hàm TinhLuong().
-     */
     public void tinhTongQuyLuong() {
         double tongLuong = 0;
         if (danhSachNV.isEmpty()) {
@@ -112,7 +87,6 @@ public class QL_NhanVien {
         }
         
         for (NhanVien nv : danhSachNV) {
-            // Tự động gọi TinhLuong() của lớp con
             tongLuong += nv.TinhLuong(); 
         }
         System.out.println("=================================");
@@ -120,6 +94,7 @@ public class QL_NhanVien {
         System.out.println("=================================");
     }
     
+    //============ Đọc/Ghi file ==========//
     public boolean ghiFile() {
         if (danhSachNV.isEmpty()) {
             System.out.println("Danh sach rong, khong co gi de ghi.");

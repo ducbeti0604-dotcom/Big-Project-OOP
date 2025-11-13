@@ -97,11 +97,11 @@ public class CoSoYTe {
         case 1:
             System.out.println("--- Them Benh Nhan Moi ---");
             
-            // BƯỚC 1: Yêu cầu người dùng nhập đầy đủ thông tin
+            //Yêu cầu người dùng nhập đầy đủ thông tin
             System.out.print("Nhap Ma BN (VD: BN003): ");
             String MaBN = scanner.nextLine();
             
-            // Kiểm tra trùng lặp ngay đây (nếu bạn đã sửa hàm themBN)
+            // Kiểm tra trùng lặp ngay đây
             if (qlBenhNhan.timKiemBN(MaBN) != null) {
                 System.out.println("Loi: Ma BN da ton tai. Quay lai menu.");
                 break;
@@ -122,11 +122,11 @@ public class CoSoYTe {
             System.out.print("Nhap Benh Ly: ");
             String benhLy = scanner.nextLine();
             
-            // BƯỚC 2: Tạo đối tượng BenhNhan MỚI từ các biến vừa nhập
+            //Tạo đối tượng BenhNhan MỚI từ các biến vừa nhập
             BenhNhan bnMoi = new BenhNhan(maID, hoTen, ngaySinh, gioiTinh, soDienThoai,
             		MaBN, ngayVaoVien, benhLy);
                     
-            // BƯỚC 3: Thêm vào danh sách quản lý
+            //Thêm vào danh sách quản lý
             qlBenhNhan.themBN(bnMoi);
             break;
             case 2:
@@ -173,16 +173,15 @@ public class CoSoYTe {
                 System.out.println("--- Xoa Dich Vu ---");
                 System.out.print("Nhap Ma DV can xoa (VD: T001, XN001): ");
                 maDV = scanner.nextLine();
-                qlDichVu.xoaDV(maDV); // Gọi hàm xóa đã thêm
+                qlDichVu.xoaDV(maDV);
                 break;
             case 3:
                 System.out.println("--- Sua Gia Dich Vu ---");
                 System.out.print("Nhap Ma DV can sua gia: ");
                 maDV = scanner.nextLine();
-                qlDichVu.suaDV(maDV, scanner); // Gọi hàm sửa đã thêm
+                qlDichVu.suaDV(maDV, scanner);
                 break;
             case 4:
-                // Sửa: Cập nhật constructor (6 tham số)
                 qlDichVu.themDV(new Thuoc("T003", "Panadol Extra", 30000, "Vien", 1.0, 'B'));
                 break;
             case 0:
@@ -193,8 +192,6 @@ public class CoSoYTe {
         }
     }
 
-    // *** HÀM MỚI ĐƯỢC THÊM VÀO ***
-    // Menu con 3 (Mới)
     public static void menuQuanLyNhanVien() {
         System.out.println("-- Menu Quan Ly Nhan Vien --");
         System.out.println("1. Them nhan vien moi (Demo)");
@@ -210,13 +207,12 @@ public class CoSoYTe {
         } catch (Exception e) {
             System.out.println("Vui long nhap SO.");
         }
-        scanner.nextLine(); // Luôn tiêu thụ ký tự enter
+        scanner.nextLine();
         String maNV;
 
         switch (chon) {
             case 1:
                 System.out.println("--- Them Nhan Vien Moi (Demo Bac Si) ---");
-                // Trong một ứng dụng thực tế, bạn sẽ yêu cầu người dùng nhập từng thông tin
                 BacSi bsMoi = new BacSi("CCCD103", "Nguyen Thi G", "04/04/1988", "Nu", "044444444", "BS002", "Pho Khoa", 4.5, 3000000);
                 qlNhanVien.themNV(bsMoi);
                 break;
@@ -246,7 +242,6 @@ public class CoSoYTe {
         }
     }
 
-    // Menu con 4 (Trước đó là 3)
     public static void menuLapHoaDon() {
         System.out.println("-- Menu Lap Hoa Don --");
         System.out.print("Nhap ma hoa don (VD: HD001): ");
@@ -284,7 +279,6 @@ public class CoSoYTe {
         hoaDonMoi.xuatHoaDon();
     }
 
-    // Menu con 5 (Trước đó là 4)
     public static void menuThongKe() {
         System.out.println("-- Menu Thong Ke --");
         System.out.println("1. Xuat lich su giao dich (hoa don)");
@@ -315,8 +309,7 @@ public class CoSoYTe {
         qlDichVu.themDV(new XetNghiem("XN001", "Xet nghiem mau", 'A', 150000, "May ly tam", "Mau"));
         qlDichVu.themDV(new XetNghiem("XN002", "Sieu am o bung", 'B', 200000, "May sieu am", "Hinh anh"));
 
-        // *** THÊM DỮ LIỆU MẪU NHÂN VIÊN ***
-        System.out.println("Them du lieu mau Nhan Vien...");
+          System.out.println("Them du lieu mau Nhan Vien...");
         qlNhanVien.themNV(new BacSi("CCCD100", "Nguyen Van Bac Si", "01/01/1980", "Nam", "011111111", "BS001", "Truong Khoa", 5.0, 5000000));
         qlNhanVien.themNV(new DieuDuong("CCCD101", "Tran Thi Dieu Duong", "02/02/1990", "Nu", "022222222", "DD001", "Dieu duong truong", 3.5, 2000000, 10));
         qlNhanVien.themNV(new KiThuatVien("CCCD102", "Le Van KTV", "03/03/1995", "Nam", "033333333", "KTV001", "KTV Xet nghiem", 3.0, 1000000, 500000, 20));

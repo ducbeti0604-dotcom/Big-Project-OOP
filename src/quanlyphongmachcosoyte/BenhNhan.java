@@ -1,6 +1,5 @@
 package quanlyphongmachcosoyte;
 
-// Sửa: Thêm getMaBN() và setBenhLy()
 public class BenhNhan extends Nguoi {
     private String maBN;
     private String ngayVaoVien;
@@ -27,11 +26,11 @@ public class BenhNhan extends Nguoi {
         System.out.println("Benh Ly: " + this.benhLy);
     }
 
-    public String getMaBN() {
+    public String layMaBN() {
         return maBN;
     }
 
-    public void setBenhLy(String benhLy) {
+    public void datBenhLy(String benhLy) {
         this.benhLy = benhLy;
     }
     

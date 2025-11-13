@@ -68,7 +68,7 @@ public class QL_DichVu {
             try {
                 double giaMoi = scanner.nextDouble();
                 scanner.nextLine(); // Tiêu thụ ký tự enter
-                dv.setGiaTien(giaMoi);
+                dv.datGiaTien(giaMoi);
                 System.out.println("Da cap nhat gia thanh cong!");
             } catch (Exception e) {
                 System.out.println("Loi: Vui long nhap so. Huy cap nhat.");
@@ -112,9 +112,7 @@ public class QL_DichVu {
         }
     }
 
-    /**
-     * Đọc dữ liệu dịch vụ từ file text (CSV) và tải vào danh sách.
-     */
+     // Đọc dữ liệu dịch vụ từ file text (CSV) và tải vào danh sách.
     public void docFile() {
         File file = new File(dsDichVu);
         if (!file.exists()) {
@@ -128,7 +126,6 @@ public class QL_DichVu {
             
             while (scannerFile.hasNextLine()) {
                 String line = scannerFile.nextLine().trim();
-                // Bỏ qua dòng trống hoặc dòng header (bắt đầu bằng #)
                 if (line.isEmpty() || line.startsWith("#")) continue; 
                 
                 DichVuYTe dv = phanTichDongDV(line); 
@@ -144,16 +141,12 @@ public class QL_DichVu {
         }
     }
     
-    /**
-     * Phân tích một dòng CSV thành đối tượng DichVuYTe cụ thể (Thuoc hoặc XetNghiem).
-     */
+    // Phân tích một dòng CSV thành đối tượng DichVuYTe cụ thể (Thuoc hoặc XetNghiem).    
     private DichVuYTe phanTichDongDV(String line) {
         String[] parts = line.split(","); // Tách chuỗi theo dấu phẩy
         String loaiDV = parts[0]; 
         
-        // Cần ít nhất 5 trường chung + 1 trường loại DV = 6 phần tử MIN
         if (parts.length < 6) {
-             // System.out.println("Loi doc du lieu: Du lieu thieu truong tren dong: " + line);
              return null; 
         }
 

@@ -30,7 +30,7 @@ abstract public class NhanVien extends Nguoi {
 	        System.out.println("He So Luong: " + this.heSoLuong);
 	    }
 
-	    public String getMaNV() {
+	    public String layMaNV() {
 	        return maNV;
 	    }
 	}
